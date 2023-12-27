@@ -23,9 +23,9 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('post_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('post_id')
+                    ->relationship('post', 'title')
+                    ->required(),
                 Forms\Components\Textarea::make('body')
                     ->required()
                     ->maxLength(65535)
@@ -37,7 +37,7 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('post_id')
+                Tables\Columns\TextColumn::make('post.title')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
