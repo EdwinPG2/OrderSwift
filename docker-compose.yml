@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+    web:
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+            args:
+                APP_Key: ${APP_KEY}
+                APP_ENV: ${APP_ENV}
+        image: ibizapi-local
+        container_name: Web
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        env_file:
+            - .env
+        ports:
+            - 8081:80
+            - 8082:443
+        restart: unless-stopped
+        networks:
+            - network_main_net
+
+networks:
+    network_main_net:
+        name: network_main_net
